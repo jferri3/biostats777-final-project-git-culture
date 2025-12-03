@@ -558,9 +558,6 @@ The website appears to be in HTML, but the page is loading using JavaScript.
 ### Exploration for specific table structure
 
 ```{r}
-# Continue exploring the table structure
-cat("\n=== TABLE EXPLORATION ===\n")
-
 # Find all tables
 cat("Number of tables:", page %>% html_elements("table") %>% length(), "\n")
 
@@ -581,7 +578,6 @@ print(headers)
 cat("\nNumber of table rows:", page %>% html_elements("table tr") %>% length(), "\n")
 
 # Look at first few data rows
-cat("\nFirst few table rows:\n")
 rows <- page %>% html_elements("table tr")
 for (i in 1:min(5, length(rows))) {
   cells <- rows[[i]] %>% html_elements("td, th") %>% html_text(trim = TRUE)
@@ -591,13 +587,11 @@ for (i in 1:min(5, length(rows))) {
 }
 
 # Look for DataTables specific elements
-cat("\n=== DATATABLES ELEMENTS ===\n")
 cat("Elements with 'dataTables' class:", page %>% html_elements("[class*='dataTables']") %>% length(), "\n")
 cat("Elements with 'wpDataTable' class:", page %>% html_elements("[class*='wpDataTable']") %>% length(), "\n")
 cat("Table with ID 'table_1':", page %>% html_elements("#table_1") %>% length(), "\n")
 
-# Look for select dropdowns (page size controls)
-cat("\n=== PAGE SIZE CONTROLS ===\n")
+# Look for select dropdowns
 selects <- page %>% html_elements("select")
 cat("Number of select elements:", length(selects), "\n")
 
@@ -613,3 +607,119 @@ if (length(selects) > 0) {
   }
 }
 ```
+
+There is 1 table, the table is being stored in HTML as a WordPress DataTable Plugin. There aren't an select elements, and the data is stored in the HTML rather than on a different server somewhere and simply being called to display.
+
+The reason I have only been able to extract a 100 entries is because the table is hidden by CSS given that the display function is listed as none, and is being moderated by the JavaScript loading, and I have only been able to extract the first 100 records because that's what is defaultly loaded.
+
+### Exploring Javascript Pagination
+
+```{r}
+library(rvest)
+library(dplyr)
+library(stringr)
+library(readr)
+library(chromote)
+
+
+# Start browser
+b <- chromote::default_chromote_object()$new_session()
+b$Page$navigate("https://nuforc.org/subndx/?id=all")
+Sys.sleep(30)
+
+#Confrim page has loaded
+page_check_js <- '
+{
+  title: document.title,
+  url: window.location.href,
+  bodyText: document.body ? document.body.innerText.substring(0, 500) : "no body",
+  hasTable: document.querySelectorAll("table").length,
+  hasDiv: document.querySelectorAll("div").length,
+  scripts: document.querySelectorAll("script").length,
+  readyState: document.readyState
+}
+'
+
+page_info <- b$Runtime$evaluate(page_check_js)
+page_data <- page_info$result$value
+
+# Function for page discovery 
+if (page_data$hasTable > 0){
+  pagination_discovery_js <- '
+  const results = {
+    tables: [],
+    pagination_containers: [],
+    buttons: [],
+    links: [],
+    selects: []
+  };
+
+  const tables = document.querySelectorAll("table");
+  tables.forEach((table, i) => {
+    results.tables.push({
+      index: i,
+      id: table.id || "no-id",
+      class: table.className || "no-class", 
+      rows: table.querySelectorAll("tr").length,
+      visible: table.offsetParent !== null
+    });
+  });
+
+  const paginationSelectors = [
+    ".dataTables_paginate", ".pagination", ".page-numbers",
+    "[class*=paginate]", "[class*=paging]", ".wp-pagenavi"
+  ];
+
+  paginationSelectors.forEach(selector => {
+    const elements = document.querySelectorAll(selector);
+    if (elements.length > 0) {
+      results.pagination_containers.push({
+        selector: selector,
+        count: elements.length,
+        visible: elements[0].offsetParent !== null
+      });
+    }
+  });
+
+  const buttons = document.querySelectorAll("button, input[type=button]");
+  buttons.forEach((btn, i) => {
+    const text = btn.textContent.trim().toLowerCase();
+    if (text.includes("next") || text.includes("prev") || text.match(/^\\\\d+$/)) {
+      results.buttons.push({
+        text: btn.textContent.trim(),
+        visible: btn.offsetParent !== null
+      });
+    }
+  });
+
+  const links = document.querySelectorAll("a");
+  links.forEach((link, i) => {
+    const text = link.textContent.trim().toLowerCase();
+    if (text.includes("next") || text.includes("prev") || text.match(/^\\\\d+$/)) {
+      results.links.push({
+        text: link.textContent.trim(),
+        visible: link.offsetParent !== null
+      });
+    }
+  });
+
+  const selects = document.querySelectorAll("select");
+  results.selects = Array.from(selects).map(select => ({
+    name: select.name || "no-name",
+    visible: select.offsetParent !== null,
+    optionCount: select.options.length
+  }));
+
+  results;
+  '
+  
+  discovery_result <- b$Runtime$evaluate(pagination_discovery_js)
+  discovery_data <- discovery_result$result$value
+  
+}
+
+# Close browser
+b$close()
+```
+
+### 
