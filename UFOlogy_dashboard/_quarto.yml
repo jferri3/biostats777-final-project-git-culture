@@ -9,12 +9,7 @@ website:
     left:
       - href: index.qmd
         text: Home
-      - howto.qmd
-      - NUFORC.qmd
-      - bigfoot.qmd
-      - weather.qmd
-      - about.qmd
-       
+
 format:
   html:
     theme:

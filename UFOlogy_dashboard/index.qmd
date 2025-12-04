@@ -1,9 +1,15 @@
 ---
 title: "It's a bird, it's a plane - no it's a UFO!"
+format: dashboard
 ---
 
+# Bigfoot
 
-## add relevant info here
+## Reports map {.tabset}
 
-## summary of each section?
+
+# UFO
+
+# Weather
+
 
