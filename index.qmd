@@ -2,6 +2,7 @@
 title: "It's a bird, it's a plane - no it's a UFO!"
 format: 
   dashboard:
+    css: styles.css
     scrolling: true
 author: Git Culture
 ---
@@ -21,6 +22,7 @@ library(stringr)
 ```
 
 # NUFORC
+
 ```{r neon theme, echo=FALSE}
 ## Generating cool neon theme
 
@@ -76,7 +78,7 @@ monthly_shapes <- ufo_data %>%
   group_by(Data.Shape) %>%
   mutate(cumulative_count = cumsum(monthly_count)) %>%
   ungroup()
-``` 
+```
 
 ```{r plot builder, echo=FALSE}
 #Cumulative sightings over time, neon theme
@@ -317,48 +319,61 @@ day_night_UFOsightings <- ufo_data %>%
        x = "", y = "Sightings") +
   neon_theme
 ```
+
 ## 
+
 issue: the wordcloud won't print out 2025.12.06 JTF
+
 ```{r, echo=FALSE}
 # Display the stored plot later
 replayPlot(plot)
 
 ```
 
-## {width=20}
+##  {width="20"}
+
 ```{r, echo=FALSE}
 cumulative_sightings
 ```
-## {width=20}
+
+##  {width="20"}
+
 ```{r, echo=FALSE}
 day_night_UFOsightings
 
 ```
-## {width=20}
+
+##  {width="20"}
+
 ```{r, echo=FALSE}
 UFOsightings_temperature
 
 ```
-## {width=20}
+
+##  {width="20"}
 
 ```{r, echo=FALSE}
 monthly_sightings
 ```
-## {width=20}
+
+##  {width="20"}
 
 ```{r, echo=FALSE}
 seasonal_sightings
 
 ```
-## {width=20}
+
+##  {width="20"}
+
 ```{r, echo=FALSE}
 UFOsightings_time_space
 ```
-## {width=20}
+
+##  {width="20"}
+
 ```{r, echo=FALSE}
 top15_counties
 ```
-
 
 ```{r, echo=FALSE}
 UFOencounter_duration_shape
@@ -366,9 +381,9 @@ UFOencounter_duration_shape
 ```
 
 # Health data
-2025.12.07: plots are in - need to make static overlays for clicky clicking for dashboard JTF
+
 ```{r ypll, echo=FALSE}
-caliYPLL <- read.csv("county_health_data/combined_california_ypll.csv")
+caliypll <- read.csv("county_health_data/combined_california_ypll.csv")
 nuforc <- read.csv("nuforc_county_weather_bigfoot.csv")
 
 ## can use ggplot2 and have mutliple separate layers per plot and pull from different dataframes
@@ -381,26 +396,32 @@ library(viridis)
 
 options(tigris_use_cache = TRUE)
 
-# 1. Load US county shapefiles
-counties_sf <- counties(cb = TRUE, year = 2023)  # cb = cartographic boundaries
+# --- 1. Prepare caliypll ---
+caliypll <- caliypll %>%
+  mutate(FIPS = sprintf("%05d", as.numeric(FIPS)))  # ensure FIPS is 5-character
 
-# 2. Make sure FIPS codes match format (zero-padded 5-digit strings)
-caliYPLL$FIPS <- sprintf("%05d", as.numeric(caliYPLL$FIPS))
+# --- 2. Load US counties shapefile ---
+counties_sf <- counties(cb = TRUE, year = 2023)
 
-# 3. Join your data to the map data using FIPS
+# --- 3. Join caliypll to county shapefile ---
 county_map_df <- counties_sf %>%
-  mutate(FIPS = GEOID) %>%
-  left_join(caliYPLL, by = "FIPS")
+  mutate(FIPS = GEOID) %>%                        # GEOID is 5-character FIPS
+  left_join(caliypll %>% select(FIPS, YPLL_Rate), by = "FIPS")
 
-# 4. Plot choropleth
-YPLL_plot <- ggplot(county_map_df %>% filter(STATEFP == "06")) +
-  geom_sf(aes(fill = YPLL_Rate), color = NA) +     # NA removes borders for cleaner heat map
+# Check
+head(county_map_df$YPLL_Rate)
+class(county_map_df)  # should be "sf"
+
+# --- 4. Plot choropleth for California ---
+ypll_plot <- ggplot(county_map_df %>% filter(STATEFP == "06")) +
+  geom_sf(aes(fill = YPLL_Rate), color = NA) +   # no borders for clean map
   scale_fill_viridis(option = "magma", direction = -1, na.value = "grey90") +
   labs(
     title = "Years of Potential Life Lost Rate by County",
     fill = "YPLL Rate"
-  ) +
-  theme_minimal()
+  ) 
+# --- 5. Display plot ---
+ypll_plot
 ```
 
 ```{r sightings heatmap, echo=FALSE}
@@ -440,7 +461,9 @@ plot_sightings <- ggplot(map_df_sightings) +
     title = "UFO Sightings by County in California",
     fill = "Sightings"
   ) +
-  theme_minimal()
+  neon_theme +
+  theme_minimal() 
+
 ```
 
 ```{r average precip heat map, echo=FALSE}
@@ -478,7 +501,8 @@ precip_plot <- ggplot(map_df_precip) +
     title = "Average Monthly Precipitation by County (CA)",
     fill = "Avg Precip"
   ) +
-  theme_minimal()
+  theme_minimal()+
+  neon_theme
 ```
 
 ```{r year 2014, echo=FALSE}
@@ -513,7 +537,8 @@ sightings_2014_plot <- ggplot(map_df_2014) +
     title = "UFO Sightings by County in California (2014)",
     fill = "Sightings"
   ) +
-  theme_minimal()
+  theme_minimal()+
+  neon_theme
 ```
 
 ```{r year 2013, echo=FALSE}
@@ -548,30 +573,73 @@ sightings_2013_plot <- ggplot(map_df_2013) +
     title = "UFO Sightings by County in California (2013)",
     fill = "Sightings"
   ) +
-  theme_minimal()
+  theme_minimal()+
+  neon_theme
 ```
 
-::: {.columns}
-::: {.card}
-```{r, echo=FALSE}
-YPLL_plot
+::::: columns
+::: card
+```{r ypll plot, echo=FALSE}
+ypll_plot
 ```
 :::
 
-::: {.card-tabset}
+::: card-tabset
 ### 2013
+
 ```{r, echo=FALSE}
 sightings_2013_plot
 ```
+
 ### 2014
+
 ```{r, echo=FALSE}
 sightings_2014_plot
 ```
 :::
-:::
+:::::
 
-::: {.card}
-```{r}
+```{r, echo=FALSE}
 precip_plot
+```
+
+# static overlay version - plotly
+```{r}
+library(plotly)
+library(ggplot2)
+
+#convert ggplots to plotly objects
+p1 <- ggplotly(ypll_plot)
+p2 <- ggplotly(sightings_2013_plot)
+p3 <- ggplotly(sightings_2014_plot)
+p4 <- ggplotly(precip_plot)
+
+#combine into single plotly object with butons
+fig <- subplot(p1, p2, p3, p4, nrows = 1, shareX = TRUE, shareY = TRUE) %>%
+  layout(
+    updatemenus = list(
+      list(
+        type = "buttons",
+        x = 0.1, y = 1.15,  # position above plot
+        buttons = list(
+          list(method = "restyle",
+               args = list("visible", list(TRUE, FALSE, FALSE, FALSE)),
+               label = "ypll"),
+          list(method = "restyle",
+               args = list("visible", list(FALSE, TRUE, FALSE, FALSE)),
+               label = "Sightings 2013"),
+          list(method = "restyle",
+               args = list("visible", list(FALSE, FALSE, TRUE, FALSE)),
+               label = "Sightings 2014"),
+          list(method = "restyle",
+               args = list("visible", list(FALSE, FALSE, FALSE, TRUE)),
+               label = "Precipitation")
+        )
+      )
+    )
+  )
+
+fig
+
 ```
 
