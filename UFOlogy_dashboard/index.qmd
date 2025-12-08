@@ -20,7 +20,71 @@ library(tm)
 library(stringr)
 ```
 
+# Home
+
+Welcome to the UFOlogy Dashboard!
+
+This dashboard provides the opportunity to explore supernatural sightings and their associations with weather patterns and potential years of life lost across California counties.
+
+This dashboard was created by Sonia Dhawan, Ananya Bhaktaram. Jacqueline Ferris and Curtis Ehlert in fulfillment of Project 4 for PH.140.777, Statistical Programming Paradigms and Workflows at the Johns Hopkins Bloomberg School of Public Health.
+
+::: callout.warning
+This dashboard was created in December 2025 as a practice of programmatic skills learned in PH.140.777 and does not represent real scientific insight into the credibility of UFO or Bigfoot sightings or any potential associations with health related phenomena.
+:::
+
+# Overview
+
+## Dashboard Purpose  {.card}
+
+This interactive dashboard provides a unique perspective on supernatural phenomena in California by providing visualizing data on the following:
+
+-   **UFO Sightings - concentration and temporal trends of UFO reports**
+
+-   **Bigfoot Sightings - geographic distributions of reported Bigfoot encounters**
+
+-   **Years of Potential Life Lost (YPLL) Rate - temporal and geographic trends of YPLL rates**
+
+Our goal is to provide users the opportunity to explore interesting associations between the distribution of these phenomena and to delve into their geographic and temporal distributions across Califronia's 58 counties.
+
+## How to Use This Dashboard  {.card}
+
+1.  **Explore** data by using the tabs above to look at patterns across California throughout the years.
+2.  **Compare** different trends to come to your own conclusions.
+3.  **Download** data and R-code from our github repository to recreate our analysis for yourselves.
+
+## Data Sources  {.card}
+
+The data used in this dashboard came from the following sources:
+
+-   **UFO sightings** were obtained from CORGIS scraped and cleaned data that was originally collected by National UFO Reporting Center
+
+    -   This contained point level data of the site of reported UFO incident, as well as city, county, and type of observation
+
+-   **BIgfoot Data** came from \[Insert Source\]
+
+-   **YPLL** data came from the Robert Wood Johnson Foundations County Health Rankings
+
+    -   This contained YPLL rates at the County level in California from 2010-2025
+
 # NUFORC
+
+## Overview  {.card}
+
+The National UFO Reporting Center (NUFORC) has documented over **\[X,XXX\] UFO reports** between 1995-2018. The following analysis shows a **significant increase in UFO sightings over time**, with distinct, temporal, environmental and phenomenological differences.
+
+The United States has the highest overall number of reported UFO sightings of any country in the world. Moreover, California has the highest concentration of reported UFO sightings of any state in the U.S. It's diverse, geography, climate, and combination of rural and urban areas provides an ideal location to explore how UFO reports may be influenced by a variety of factors.
+
+::: callout-note
+The following data visualizations are based off of reported phenomenon documented and voluntarily submitted by witnesses to NUFORC. Consequently, the data should be interpreted as a behavioral response data based off of individual experiences rather than verified and confirmed extraterrestrial activity.
+:::
+
+::: callout.tip
+**Key Findings**
+
+-   The number of UFO sightings in California have increased over time.
+
+-   Seasonal variation
+:::
 
 ```{r neon theme, echo=FALSE}
 ## Generating cool neon theme
@@ -319,8 +383,6 @@ day_night_UFOsightings <- ufo_data %>%
   neon_theme
 ```
 
-## 
-
 issue: the wordcloud won't print out 2025.12.06 JTF
 
 ```{r, echo=FALSE}
@@ -329,27 +391,40 @@ replayPlot(plot)
 
 ```
 
-##  {width="20"}
+## UFO Reports Overt Time  {.tabset}
+
+The two charts below display the increased frequency of UFO reports over time in California between 2004-2014. The first graph displays the cumulative increase of UFO sightings over time and the graph in the second tab shows the distribution of UFO sightings over time by shape.
+
+### Cumulative view
 
 ```{r, echo=FALSE}
 cumulative_sightings
 ```
 
-##  {width="20"}
+### By Shape
 
 ```{r, echo=FALSE}
+UFOsightings_time_space
+```
+
+:::: grid
+::: g-col-6
+## Day vs Night Sightings  {.card}
+
+**When do UFOs Appear?** Explore h time of day influences the likelihood of spotting a UFO.
+
+```{r, echo=FALSE}
+
 day_night_UFOsightings
 
 ```
-
-##  {width="20"}
+:::
+::::
 
 ```{r, echo=FALSE}
 UFOsightings_temperature
 
 ```
-
-##  {width="20"}
 
 ```{r, echo=FALSE}
 monthly_sightings
@@ -360,12 +435,6 @@ monthly_sightings
 ```{r, echo=FALSE}
 seasonal_sightings
 
-```
-
-##  {width="20"}
-
-```{r, echo=FALSE}
-UFOsightings_time_space
 ```
 
 ##  {width="20"}
