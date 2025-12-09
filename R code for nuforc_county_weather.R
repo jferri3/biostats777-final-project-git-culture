@@ -29,6 +29,9 @@ library(readxl)
 
 NOAA_counties <- read_xlsx("NOAA_counties.xlsx")
 
+library(dplyr)
+library(tidyr)
+
 NOAA_counties <- NOAA_counties %>%
   separate(County, into = c("County", "State"), sep = ", ")
 
