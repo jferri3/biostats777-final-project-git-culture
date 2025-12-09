@@ -48,13 +48,13 @@ This interactive dashboard provides a unique perspective on supernatural phenome
 
 Our goal is to provide users the opportunity to explore interesting associations between the distribution of these phenomena and to delve into their geographic and temporal distributions across California's 58 counties.
 
-### How to Use This Dashboard 
+### How to Use This Dashboard
 
 1.  **Explore** data by using the tabs above to look at patterns across California throughout the years.
 2.  **Compare** different trends to come to your own conclusions.
 3.  **Download** data and R-code from our github repository to recreate our analysis for yourselves.
 
-### Data Sources 
+### Data Sources
 
 The data used in this dashboard came from the following sources:
 
@@ -70,7 +70,7 @@ The data used in this dashboard came from the following sources:
 
 # NUFORC
 
-### Overview 
+### Overview
 
 The National UFO Reporting Center (NUFORC) has documented over **\[X,XXX\] UFO reports** between 1995-2018. The following analysis shows a **significant increase in UFO sightings over time**, with distinct, temporal, environmental and phenomenological differences.
 
@@ -399,19 +399,19 @@ replayPlot(plot)
 
 ```
 
-## Temporal Analysis  {height="25%"}
+## Temporal Analysis {height="25%"}
 
 **The two charts below display the increased frequency of UFO reports over time in California between 2004-2014. The first graph displays the cumulative increase of UFO sightings over time and the graph in the second tab shows the distribution of UFO sightings over time by shape.**
 
-### Graphs  {.tabset}
+### Graphs {.tabset}
 
-#### Cumulative View 
+#### Cumulative View
 
 ```{r, echo=FALSE}
 cumulative_sightings
 ```
 
-#### By Shape 
+#### By Shape
 
 ```{r, echo=FALSE}
 UFOsightings_time_space
@@ -419,7 +419,7 @@ UFOsightings_time_space
 
 :::: grid
 ::: g-col-6
-### Day vs Night Sightings 
+### Day vs Night Sightings
 
 **When do UFOs Appear?** Explore how time of day influences the likelihood of spotting a UFO.
 
@@ -431,37 +431,39 @@ day_night_UFOsightings
 :::
 ::::
 
+## Break to separate out Blocks 2 and 3
+
 ::: callout
 **Seasonal Variation:**
 
 The following graphs displays show seasonal variation in UFO sightings in California. Explore the differences in sightings based on average temperature, month, and season
 :::
 
-## Seasonal Variation  {height="10%"}
+## Seasonal Variation {height="10%"}
 
-### Graphs  {.tabset}
+### Graphs {.tabset}
 
-#### Temperature Change 
+#### Temperature Change
 
 ```{r, echo=FALSE}
 UFOsightings_temperature
 
 ```
 
-#### Sightings by Month 
+#### Sightings by Month
 
 ```{r, echo=FALSE}
 monthly_sightings
 ```
 
-#### Seasonal Variation 
+#### Seasonal Variation
 
 ```{r, echo=FALSE}
 seasonal_sightings
 
 ```
 
-## County Observations  {height="20%"}
+## County Observations {height="20%"}
 
 ```{r, echo=FALSE}
 top15_counties
@@ -473,6 +475,8 @@ UFOencounter_duration_shape
 ```
 
 # UFO Maps
+
+Insert Curtis' leaflet plots here
 
 # Health data
 
