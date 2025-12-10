@@ -338,6 +338,29 @@ orig_map
 ```
 :::
 
+## card for Curtis' lovely scatterplots
+
+```{r, echo=FALSE}
+grid::grid.raster(png::readPNG("plot-images/plot_bigfoot_vs_ufo.png"))
+
+```
+
+```{r, echo=FALSE}
+grid::grid.raster(png::readPNG("plot-images/plot_ufo_vs_precip.png"))
+```
+
+```{r, echo=FALSE}
+grid::grid.raster(png::readPNG("plot-images/plot_bigfoot_vs_ufo_percap.png"))
+```
+
+```{r, echo=FALSE}
+grid::grid.raster(png::readPNG("plot-images/plot_ufo_vs_precip_percap.png"))
+```
+
+```{r, echo=FALSE}
+grid::grid.raster(png::readPNG("plot-images/plot_log_bigfoot_vs_ufo.png"))
+```
+
 # Health data
 
 **Years of Potential Life Lost vs. Weather Trends**
