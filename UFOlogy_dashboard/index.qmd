@@ -10,7 +10,7 @@ author: Git Culture
 knitr::opts_chunk$set(echo = TRUE, warning = F, message = F)
 
 # Replace root directory path with wherever github repo is locally stored for user
-knitr::opts_knit$set(root.dir = "/users/jacquelineferri/desktop/sppw/biostats777-final-project-git-culture")
+knitr::opts_knit$set(root.dir = "C:/Users/anany/OneDrive/Hopkins/PhD/Year 3/Statistical Programming/Final Project/biostats777-final-project-git-culture")
 
 library(dplyr)
 library(ggplot2)
@@ -35,9 +35,11 @@ library(tigris)
 
 This dashboard provides the opportunity to explore supernatural sightings and their associations with weather patterns and potential years of life lost across California counties.
 
-This dashboard was created by Sonia Dhawan, Ananya Bhaktaram. Jacqueline Ferris and Curtis Ehlert in fulfillment of Project 4 for PH.140.777, Statistical Programming Paradigms and Workflows at the Johns Hopkins Bloomberg School of Public Health.
+This dashboard was created by Sonia Dhawan, Ananya Bhaktaram, Jacqueline Ferris and Curtis Ehlert in fulfillment of Project 4 for PH.140.777, Statistical Programming Paradigms and Workflows at the Johns Hopkins Bloomberg School of Public Health.
 
 ::: callout.warning
+## Warning: This dashboard does not represent real scientific findings!
+
 This dashboard was created in December 2025 as a practice of programmatic skills learned in PH.140.777 and does not represent real scientific insight into the credibility of UFO or Bigfoot sightings or any potential associations with health related phenomena.
 :::
 
@@ -64,7 +66,7 @@ Our goal is to provide users the opportunity to explore interesting associations
 ::: callout-tip
 **Data Access**
 
-Access raw data, analysis documentation, and plot visualization code from our github.
+Access raw data, analysis documentation, plot visualization code, and a complete bibliography of sites and sources used in the creation of this dashboard can be found on our Github.
 
 Github Repository: <https://github.com/jferri3/biostats777-final-project-git-culture>
 :::
@@ -89,7 +91,7 @@ The data used in this dashboard came from the following sources:
 
     -   This contained YPLL rates at the County level in California from 2010-2025
 
-# Temporal Variation of UFO Sightings
+# Patterns of UFO Reports
 
 ### Overview
 
@@ -110,9 +112,11 @@ The following data visualizations are based off of reported phenomenon documente
 
 -   The number of UFO sightings in California have increased over time.
 
--   Seasonal variation
+-   Seasonal variation - UFO sightings peak when the average monthly temperature is around 60 °F
 
--   Variation by type
+-   UFOs were more likely to be reported being sighted at night
+
+-   Variation by type - reports of "egg" shaped sightings had the longest duration, while "chevron", "fireball" and "rectangle" sightings had the shortest duration.
 :::
 
 ## Temporal Analysis {height="25%"}
@@ -197,7 +201,7 @@ grid::grid.raster(png::readPNG("plot-images/UFOencounter_duration_shape.png"))
 :::
 ::::
 
-# UFO Maps
+# Supernatural Sightings & Weather
 
 ## UFO sightings, bigfoot, and precipitation
 
@@ -361,7 +365,7 @@ grid::grid.raster(png::readPNG("plot-images/plot_ufo_vs_precip_percap.png"))
 grid::grid.raster(png::readPNG("plot-images/plot_log_bigfoot_vs_ufo.png"))
 ```
 
-# Health data
+# Health Data
 
 **Years of Potential Life Lost vs. Weather Trends**
 
@@ -440,6 +444,22 @@ grid::grid.raster(png::readPNG("plot-images/sightings_2014_plot.png"))
 
 ## page break after tabs
 
-**Analysis?**
+# Analysis & Interpretation
 
-There seems to be a connection between the dryer, hotter areas of the state (southern portion) and higher numbers of UFO sightings. This is consistent between 2004 and 2014.
+## Supernatural Patterns & Key Findings
+
+### Large Number of UFO Sightings Concentrated in LA County
+
+Los Angeles County had by far the highest number of UFO sightings with more than 800 reports between 2004 and 2014. Given that the next county with the second largest number of sightings (San Diego) had nearly half the amount of reported sightings, its possible that the out sized number of UFO sightings in LA County might be due to the location of SpaceX. SpaceX was headquartered in Hawthorne, California between 2002 and 2024, which is located in Southwestern LA County. In 2024, SpaceX moved its headquarters to be located outside of Brownsville, TX. SpaceX began testing the Falcon 1 rocket in March of 2006, before successful launch the Falcon 1 in September of 2008. It's possible that the increased number of UFO sightings in LA County could be at least partially associated with repeated tests and launches from SpaceX, which overlap with our study period (2004-2010). The number of reported sightings begins to be more heavily concentrated in the Southern portion of the state from 2007 onward which is consistent with when SpaceX began their Falcon 1 tests.
+
+### Bigfoot Sightings Clustered in Northern half of the State
+
+Given the known habit of Bigfoot, temperate forests, it makes sense that the vast majority of Bigfoot sightings are concentrated in the Northern, forested parts of the state. Particularly in State and National parks like the Redwoods, and Yosemite.
+
+### Weather Variation
+
+There appears to be a consistent association across our study period with dryer, warmer areas of the state (the Southern part of the state) with higher numbers of UFO sightings. Dryer, warmer nights often mean clearer nights and increased visibility compared to cooler foggier parts of the state where visibility might be limited. The combination of increased visibility alongside the location of both private and governement launch and testing sites (e.g. SpaceX, Northrup-Grumman, and Vandenberg Airforce Base, among others) could help explain why the majority of UFO sightings are clustered in the Southern part of the state.
+
+## Health Data
+
+There does not appear to be a substantiated association with the locations of either UFO or Bigfoot sightings and years of potential life lost rates in California counties between 2004 and 2014. Rather counties with high YPLL rates appeared to be counties that were more likely to be rural suggesting that the patterning of YPLL assessments is likely to be associated with other social determinants of health. Future studies ought to examine how social determinants of health, particularly factors relating to disinvestment in rural areas are likely to impact access to care. Additionally, the funneling of resources and economic opportunities toward urban hubs like San Francisco, Los Angeles, Sacramento, and San Diego may be creating unintentional consequences for rural counties surrounding them which have historically employed lots of migrant workers on farms who are likely to be marginalized and vulnerable.
