@@ -35,7 +35,7 @@ library(tigris)
 
 This dashboard provides the opportunity to explore supernatural sightings and their associations with weather patterns and potential years of life lost across California counties.
 
-This dashboard was created by Sonia Dhawan, Ananya Bhaktaram, Jacqueline Ferris and Curtis Ehlert in fulfillment of Project 4 for PH.140.777, Statistical Programming Paradigms and Workflows at the Johns Hopkins Bloomberg School of Public Health.
+This dashboard was created by Sonia Dhawan, Ananya Bhaktaram, Jacqueline Ferri and Curtis Ehlert in fulfillment of Project 4 for PH.140.777, Statistical Programming Paradigms and Workflows at the Johns Hopkins Bloomberg School of Public Health.
 
 ::: {.callout-warning}
 ## Warning: This dashboard does not represent real scientific findings!
