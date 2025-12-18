@@ -1,6 +1,6 @@
 This project explores UFO sightings through the state of California from 2004-2014, relating sightings to health outcomes, weather events, and other supernatural sightings. 
 
-The website link can be found here: https://jferri3.github.io/biostats777-final-project-git-culture/#machine-learning. The index.qmd can also be found within our project dashboard folder.
+The website link can be found here: https://jferri3.github.io/biostats777-final-project-git-culture/. The index.qmd can also be found within our project dashboard folder.
 
 Historically, there has been little research investigating UFO sightings, and which factors may contribute to higher sightings in specific counties. As a result, we created a dashboard to visualize trends in UFO sightings across the state of California and over time, to explore potential associations between these and other phenomena. In our analysis, We were primarily concerned with Bigfoot sightings, to determine whether correlation was observed for two distinct supernatural observations, hinting at sociological pressures; years of potential life lost (YPLL), indicative of county health; and temperature and precipitation events, to see if visibility trends impacted sightings. 
 
